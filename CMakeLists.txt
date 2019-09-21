@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 
 project(jpeg-6b C)
 
-set(JPEG_SOURCES
+set(JPEG-6B_SOURCES
     jcapimin.c
     jcapistd.c
     jccoefct.c
@@ -50,8 +50,11 @@ set(JPEG_SOURCES
     jquant2.c
     jutils.c
     )
+if (${CMAKE_C_COMPILER_ID} STREQUAL MSVC)
+	set(JPEG-6B_SOURCES ${JPEG-6B_SOURCES} jpeg-6b/jpeg-6b.def)
+endif()
 
-add_library(jpeg-6b MODULE ${JPEG_SOURCES})
+add_library(jpeg-6b MODULE ${JPEG-6B_SOURCES})
 
 if (${CMAKE_C_COMPILER_ID} STREQUAL MSVC)
 	configure_file(jconfig.vc jconfig.h)
